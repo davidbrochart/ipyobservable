@@ -1,0 +1,3 @@
+# unofficial-observablehq-compiler
+
+This is a copy of Alex Garcia's [unofficial-observablehq-compiler](https://github.com/asg017/unofficial-observablehq-compiler), at [PR #29](https://github.com/asg017/unofficial-observablehq-compiler/pull/29). Browse the repository at [this point in the history](https://github.com/asg017/unofficial-observablehq-compiler/tree/0c4a2b7864d163611b81c005f547065761943b79).
