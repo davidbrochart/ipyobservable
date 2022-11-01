@@ -1,7 +1,5 @@
-from textwrap import dedent
-
 import ipywidgets as widgets
-from traitlets import Bool, Dict, Unicode, observe
+from traitlets import  Dict, Unicode, validate
 from ._version import NPM_PACKAGE_RANGE
 
 # See js/lib/observable.js for the frontend counterpart to this file.
@@ -30,4 +28,11 @@ class Observable(widgets.DOMWidget):
     # Widget properties are defined as traitlets. Any property tagged with `sync=True`
     # is automatically synced to the frontend *any* time it changes in Python.
     # It is synced back to Python from the frontend *any* time the model is touched.
-    ojs = Unicode().tag(sync=True)
+    code = Unicode().tag(sync=True)
+    data = Dict()
+
+    @validate("code")
+    def _add_data(self, proposal):
+        vars = [f"{k} = {v}\n" for k, v in self.data.items()]
+        code = "".join(vars) + proposal["value"]
+        return code
