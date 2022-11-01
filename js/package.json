@@ -1,6 +1,6 @@
 {
   "name": "ipyobservable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Jupyter widget for Observable",
   "author": "David Brochart",
   "license": "BSD-3-Clause",
