@@ -1,6 +1,6 @@
 import { DOMWidgetModel, DOMWidgetView } from '@jupyter-widgets/base';
-import {Runtime, Inspector} from '@observablehq/runtime';
-import {Compiler} from "./unofficial-observablehq-compiler";
+import { Runtime, Inspector } from '@observablehq/runtime';
+import { Compiler } from "./unofficial-observablehq-compiler";
 
 
 export class ObservableModel extends DOMWidgetModel {
@@ -16,7 +16,7 @@ export class ObservableModel extends DOMWidgetModel {
         _runtime: new Runtime(),
         _compile: new Compiler(),
         _nodes: [],
-        ojs: '',
+        code: '',
       };
     }
   }
@@ -27,20 +27,20 @@ export class ObservableView extends DOMWidgetView {
     this.compile = this.model.get('_compile');
     this.nodes = this.model.get('_nodes');
     if (this.nodes.length === 0) {
-      this.ojs_changed();
+      this.code_changed();
     }
     else {
       for (let node of this.nodes) {
         this.el.appendChild(node);
       }
     }
-    this.model.on('change:ojs', this.ojs_changed, this);
+    this.model.on('change:code', this.code_changed, this);
   }
 
-  ojs_changed() {
-    const source = this.model.get('ojs');
-    const code = this.compile.module(source);
-    eval(code);
+  code_changed() {
+    const code = this.model.get('code');
+    const compiled_code = this.compile.module(code);
+    eval(compiled_code);
     const main = this.runtime.module(this.define, name => {
       const node = document.createElement("DIV");
       this.el.appendChild(node);
