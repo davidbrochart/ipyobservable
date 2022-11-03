@@ -1,6 +1,10 @@
 from ._version import __version__
-
+from .magics import ObservableMagics
 from .observable import *
+
+
+def load_ipython_extension(ipython):
+    ipython.register_magics(ObservableMagics)
 
 
 def _jupyter_labextension_paths():
